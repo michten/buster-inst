@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# opcja: zdalny host(konfiguracja ansible?)
+# apt.sources.list: clean(rm CD-ROM)&check(testing OR name,main contrib non-free, comment src)
+# apt default stretch
+# add repo chrome,opera,spotify,x2go
+# (apt noreccomend pkg)
+
+#nowa inst gen plk i test w vm
+#		dpkg --get-selections
+#		debconf
+
+
+#remote.sh
+#		(config: serwis,x2go(?),
+
+# server: no root login, VERBOSE, no pass key only, port,
+# keys:conn,between_dom)
+#		(x2go: log: to user session, to new session)
+
+#firewall
+#ufw enable
+#ufw default reject incoming
+#ufw allow 19900/tcp
+# ufw allow kdeconnect
+
+# lm-sensors
+#yes | sensors-detect
+#echo 'blacklist pcspkr' > /etc/modprobe.d/pcspkr-blacklist.conf

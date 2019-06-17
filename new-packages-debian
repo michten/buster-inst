@@ -1,0 +1,6 @@
+
+
+apt install i3 i3-wm fonts-dejavu-core libanyevent-i3-perl libjson-xs-perl dunst i3lock i3status suckless-tools dwm stterm
+redshift
+upower
+efibootmgr
