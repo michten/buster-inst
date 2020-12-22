@@ -27,14 +27,11 @@ fi
 # mount -o subvolid=5 $btrfs_partition $btrfs_id5_mount_path	
 
 
-#TODO: if no user 1000 then find users with home in /etc/passwd and prompt to choose
-# 
-#username= uid 1000 or /home/.+ from /etc/passwd to choose
-
-username=$(awk -F':' '$3 == "1000" {print $1}' /etc/passwd)
-if [ -z $username ]; then
-	users with /home/dir in passwd
-fi 
+# This sourced script add three variables user_uid, user_name, user_path used later here
+. choose-user.sh
+# echo "$user_uid"
+# echo "$user_name"
+# echo "$user_path"
 
 
 # Prepare folder herarchy for subvols on id=5
@@ -50,7 +47,6 @@ fi
 for s in $subvols_names; do 
 	btrfs subvol create "$btrfs_id5_mount_path$s"
 done
-
 
 
 # Prepare mount points folder herarchy in /buster/mnt/
@@ -70,23 +66,24 @@ setup_table="
 /dokumenty/duze-doc
 /nodatacow/
 
-"
-
-username=$(awk -F: '$3 == 1000 {print $1}' /etc/passwd)
-
 
 # btrfs subvols & fstab entries matrix
 #
-#<subvolpath id=5 relative>	<mount points>		<options>				<nodatacow>
+#<subvolpath id=5 relative>	<mount points>		<options>				<nodatacow=1>  	<subvol=1 or dir=0>
 declare -a st=(
-"/dokumenty			0  			0  					0"
-"/dokumenty/doc			/mnt/dokumeny/doc  	ro,subvol=doc  				0"
-"/home_dirs/buster-$username	/home/$username  	noexec,subvol=buster-$username  	0"
-"/nodatacow/  			/mnt/  			noexec  				1"
+"/dokumenty			0  			0  					0  		1"
+"/dokumenty/doc			/mnt/dokumeny/doc  	ro,subvol=doc  				0  		1"
+"/dokumenty/duze		/mnt/dokumeny/duze  	ro,subvol=duze  			0  		1"
+"/home_dirs  			0  			0  					0		0"
+"/home_dirs/buster-$user_name	$user_path   		noexec,subvol=buster-$user_name  	0  		1"
+"/workdir/  			/mnt/workdir  		defaults,subvol=workdir  		0  		1"
+"/nodatacow/  			/mnt/nodatacow  	noexec  				1  		1"
+"/home_dirs  			0  			0  					0		0"
 )
 
 ############################################################################
 
+# funkcja będzie wczytywać kolejne linie, gdy '$5' 0 to tworzy katalog gdy 1 to tworzy subvol, ?kolejna-funkcja?
 
 #### main:
 for subvol_item in ${setup_table}; do

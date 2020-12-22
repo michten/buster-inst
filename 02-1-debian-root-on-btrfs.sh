@@ -47,16 +47,15 @@ fi
 
 
 ### Edit grub:
-# sed: in the next to last [^\s]+ or \S+ it looks like both are working.
-grub_flags=$(sed -rn -e '/^GRUB_CMDLINE_LINUX_DEFAULT/ {s/^GRUB_CMDLINE_LINUX_DEFAULT="//;s/"$//;p}' -e 's/rootflags=subvol=[^\s]+(\s|$)//g' -e 's/\s*$//' $grubpath)
+grub_flags=$(sed -En -e '/^GRUB_CMDLINE_LINUX_DEFAULT/ {s/^GRUB_CMDLINE_LINUX_DEFAULT="//;s/"$//; s/rootflags=subvol=\S+(\s|$)//g; s/\s*$//; p}' $grubpath)
 grub_flags="$grub_flags rootflags=subvol=$subvol_full_path"
 sed -i.btrfs-bak 's|^GRUB_CMDLINE_LINUX_DEFAULT=.*|GRUB_CMDLINE_LINUX_DEFAULT="'"$grub_flags"'"|' $grubpath
 
 
 ### Edit fstab
-fstab_mount_options=$(awk '$2 == "/" {print $4}' "$fstabpath" | sed -r 's/,?subvol=[^,]+,?//g')
+fstab_mount_options=$(awk '$1 ~ "^[^#]" && $2 == "/" {print $4}' "$fstabpath" | sed -E 's|subvol=/[[:alnum:]]+||g; s/^,//; s/,{2,}/,/g; s/,$//')
 fstab_mount_options="$fstab_mount_options,subvol=$subvol_full_path"
-awk '$2=="/" {$4="'"$fstab_mount_options"'"}; {print}' $fstabpath > $fstab_tmp_path && \
+awk '$2 == "/" {$4="'"$fstab_mount_options"'"}; {print}' $fstabpath > $fstab_tmp_path && \
 mv --backup=t $fstab_tmp_path $fstabpath
 
 

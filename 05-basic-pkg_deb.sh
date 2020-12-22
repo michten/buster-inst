@@ -32,7 +32,7 @@ base_pkg="$base_pkg bash-completion tmux aptitude lsb-release gnupg apt-transpor
 base_pkg="$base_pkg glances python3-bottle python3-docker python3-influxdb python3-matplotlib python3-netifaces python3-pysnmp4 python3-pystache"
 
 base_pkg="$base_pkg linux-cpupower powertop lm-sensors vbetool ddccontrol edid-decode dmidecode usb-modeswitch rfkill"
-base_pkg="$base_pkg smartmontools hdparm hddtemp fdisk gdisk gpart testdisk gddrescue syslinux-utils"
+base_pkg="$base_pkg smartmontools hdparm hddtemp fdisk gdisk gpart testdisk gddrescue syslinux-utils nvme-cli"
 
 base_pkg="$base_pkg acpi acpi-fakekey upower"
 
@@ -45,6 +45,7 @@ base_pkg="$base_pkg file git debconf-utils aufs-tools"
 base_pkg="$base_pkg p7zip-full p7zip-rar unrar"
 base_pkg="$base_pkg alsa-utils lame flac opus-tools sox youtube-dl aom-tools"
 base_pkg="$base_pkg python-pip python-all-dev python-wheel"
+base_pkg="$base_pkg bc"
 #base_pkg="$base_pkg unattended-upgrade net-tools laptop-mode-tools"
 #base_pkg="$base_pkg qemu-system-x86 qemu-guest-agent qemu-utils libvirt-daemon-system"
 # adb and fastboot now from sid repo

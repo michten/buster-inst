@@ -9,7 +9,9 @@ sed -i "s/^#PasswordAuthentication yes$/PasswordAuthentication no/" $sshd_conf
 # chck uses(in system inhome) add pub.keys to ~/.ssh/: conn, between, x2go?
 #mkdir .ssh
 #usr=$(grep -i '1000' /etc/passwd | awk -F: '{print $1}')
+# . choose-user.sh
 usr_pth=$(grep -i '1000' /etc/passwd | awk -F: '{print $6}')
+#ssh-keygen -o -a100 -t ed25519 -N "" -f /homepath/.ssh/key.key
 cat ../.ssh/dom/dom.pub >> "$usr_pth/.ssh/authorized_keys"
 #cat ../.ssh/dom/dom.pub >> "$usr_pth/.ssh/authorized_keys"
 

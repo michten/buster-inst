@@ -1,11 +1,11 @@
 #!/bin/bash
 # Set default release, no recommends, additional package repos.
 
-debian_release=${1:-buster} #stretch or stable or buster or testing
+debian_release=${1:-bullseye} #stretch or stable or buster or testing
 case $debian_release in
-	buster) echo 'OK. Set repo as Buster';;
-	testing) debian_release=testing; echo 'Testing repo. Be careful! Scripts tested on Buster!';;
-	*) echo 'Wrong Debian release name! Please choose buster(default) or testing.'; exit 1;;
+	bullseye) echo 'OK. Set repo to Bullseye';;
+	testing) debian_release=testing; echo 'Testing repo.';;
+	*) echo 'Wrong Debian release name! Please choose bullseye(default) or testing.'; exit 1;;
 esac
 
 sourceslistd_dir='/etc/apt/sources.list.d/'
@@ -28,8 +28,8 @@ apt-get -y install apt-transport-https ca-certificates curl wget gnupg software-
 aptitude bash-completion
 
 #   Following may require change release name in future
-#wget -qO- https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add -
-#echo 'deb http://download.virtualbox.org/virtualbox/debian testing contrib' > "$sourceslistd_dir"vbox.list
+wget -qO- https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add -
+echo 'deb http://download.virtualbox.org/virtualbox/debian buster contrib' > "$sourceslistd_dir"vbox.list
 
 #apt-key adv --keyserver pgp.mit.edu --recv-keys A295D773307D25A33AE72F2F64CD5FA175348F84
 #echo 'deb https://dl.ring.cx/ring-nightly/debian_9/ ring main' > "$sourceslistd_dir"ring-nightly-main.list
@@ -38,13 +38,13 @@ aptitude bash-completion
 curl -s https://updates.signal.org/desktop/apt/keys.asc | apt-key add -
 echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" > "$sourceslistd_dir"signal.list
 
-#   Sophisticated repos
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-echo "deb [arch=amd64] https://download.docker.com/linux/debian $debian_release stable edge"  > "$sourceslistd_dir"docker.list
+echo "deb [arch=amd64] https://download.docker.com/linux/debian buster stable edge"  > "$sourceslistd_dir"docker.list
+#echo "deb [arch=amd64] https://download.docker.com/linux/debian $debian_release stable edge"  > "$sourceslistd_dir"docker.list
 
-curl -s https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
+wget -qO- https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
 echo "deb https://dl.winehq.org/wine-builds/debian/ $debian_release main" > "$sourceslistd_dir"winehq.list
-#echo -e 'Package: *\nPin: release o=dl.winehq.org\nPin-Priority: 991' > "$pindir"winehq.pref
+echo -e 'Package: *\nPin: release o=dl.winehq.org\nPin-Priority: 991' > "$pindir"winehq.pref
 
 #apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E
 #echo "deb http://packages.x2go.org/debian $debian_release main" > "$sourceslistd_dir"x2go.list
@@ -55,7 +55,7 @@ echo "deb https://dl.winehq.org/wine-builds/debian/ $debian_release main" > "$so
 curl -s https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' > "$sourceslistd_dir"google-chrome.list
 
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+curl -s https://download.spotify.com/debian/pubkey.gpg | apt-key add -
 echo 'deb http://repository.spotify.com stable non-free' > "$sourceslistd_dir"spotify.list
 
 curl -s https://syncthing.net/release-key.txt | apt-key add -

@@ -6,9 +6,9 @@
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # Now run this script from its directory
 
-vim_pkg="vim git \
+vim_pkg="vim-athena git \
 vim-addon-manager vim-autopep8 vim-pathogen vim-python-jedi vim-scripts vim-syntax-docker \
-ansible-lint flake8 isort mypy pylint yapf yapf3 shellcheck flawfinder foodcritic python3-proselint tidy jsonlint jq chktex yamllint"
+ansible-lint flake8 isort mypy pylint yapf3 shellcheck flawfinder foodcritic python3-proselint tidy jsonlint jq chktex yamllint"
 
 # 	Tex 	(430 MB on system without X11)
 #vim_pkg="$vim_pkg lacheck"
@@ -47,13 +47,13 @@ cp 07-herald_mod.vim /var/lib/vim/addons/colors/herald_mod.vim
 echo \
 'set number
 set relativenumber
+set clipboard=unnamedplus
 
 inoremap kk <ESC>
 colorscheme herald_mod
 execute pathogen#infect()' > $vimrc
 
 # Ale, and others. Outside to easy upgrade
-./07-vim-ale.sh
+bash 07-2-vim-git-plugins.sh
 
-update-alternatives --set editor /usr/bin/vim.nox
-
+update-alternatives --set editor /usr/bin/vim.athena

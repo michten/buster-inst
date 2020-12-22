@@ -1,9 +1,9 @@
 # buster-inst
-> Collection of simple bash scripts with configuration of my debian-desktop setup.
+Collection of simple bash scripts with configuration of my debian-desktop setup.
 
 ## General info
 Script are in bash.
-There are probably better tools to use for this, but I wanted to write something in bash and it was my main purpose.
+There are probably better tools to use for this job, but I wanted to write something in bash and it was my main purpose.
 Scripts are idempotent or will exit when some conditions weren't meet and make backups of config files.
 
 ## Setup

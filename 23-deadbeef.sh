@@ -1,6 +1,8 @@
 #!/bin/sh
+#
 # Download and install DeaDBeeF in /opt (not in home due to noexec mount option)
 # make menu shortcut and copy config + waveform
+# On DeadBeef site is already deb package.
 #
 # TODO: DeadBeeF conf
 # TODO: WaveformSeekbar conf
@@ -9,7 +11,8 @@
 ### installer configuration:
 install_dir='/opt/deadbeef'
 shortcut_dir='/usr/local/bin/'
-deadbeef_link='https://sourceforge.net/projects/deadbeef/files/travis/linux/1.8.0/deadbeef-static_1.8.0-1_x86_64.tar.bz2'
+#deadbeef_link='https://sourceforge.net/projects/deadbeef/files/travis/linux/1.8.0/deadbeef-static_1.8.0-1_x86_64.tar.bz2'
+deadbeef_link=$(curl -s http://deadbeef.sourceforge.net/download.html | grep -o 'href="https://sourceforge.net/projects/deadbeef/files/travis/linux/.*/deadbeef-static_.*_x86_64.tar.bz2/download"' | sed -e 's|^href="||' -e 's|/download"$||')
 waveform_link=$(curl -s http://deadbeef.sourceforge.net/plugins.html | grep -o 'http://sourceforge.net/projects/deadbeef/files/plugins/x86_64/ddb_waveform_seekbar-.*-x86_64.zip')
 mpris_link=$(curl -s http://deadbeef.sourceforge.net/plugins.html | grep -o 'http://sourceforge.net/projects/deadbeef/files/plugins/x86_64/mpris-.*-x86_64.zip')
 ############################

@@ -4,3 +4,6 @@ apt install i3 i3-wm fonts-dejavu-core libanyevent-i3-perl libjson-xs-perl dunst
 redshift
 upower
 efibootmgr
+
+
+redshift for wayland bootstrap: dh-autoreconf

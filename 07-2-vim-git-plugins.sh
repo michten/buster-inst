@@ -7,6 +7,18 @@ ale_path='/var/lib/vim/addons/bundle/ale'
 mkdir -p $ale_path
 git clone https://github.com/w0rp/ale.git $ale_path
 
+# vim-orgmode
+vimorgmode_path='/var/lib/vim/addons/bundle/vim-orgmode'
+[ -e $vimorgmode_path ] && rm -rf $vimorgmode_path
+mkdir -p $vimorgmode_path
+git clone https://github.com/jceb/vim-orgmode $vimorgmode_path
+
+# speeddating for vim-orgmode
+speeddating_path='/var/lib/vim/addons/bundle/speeddating'
+[ -e $speeddating_path ] && rm -rf $speeddating_path
+mkdir -p $speeddating_path
+git clone https://tpope.io/vim/speeddating.git $speeddating_path
+
 # alex	   --— Catch insensitive, inconsiderate writing. npm.
 #git https://github.com/wooorm/alex
 
